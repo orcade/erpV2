@@ -2,7 +2,7 @@ const ProducerEdit = {
         template: `
     <div>
 
-    <h1>Mettre à jour le produit n°{{ $route.params.id }} </h1>
+    <h1>Mettre à jour le producteur n°{{ $route.params.id }} </h1>
 
         <div v-if="loading" class="loading">
           Loading...
@@ -18,24 +18,30 @@ const ProducerEdit = {
 
         <div v-if="item">
 
-            <label>Nom</label>
-            <input type="text"  v-model="item.name" v-on:keyup.enter="sendModif">
-        </div>
-
         <div>
-
-            <label>Référence</label>
-            <input type="text"  v-model="item.ref" >
+            <label>firstname</label>
+            <input type="text" v-model="item.firstname" />
         </div>
-
         <div>
-            <label>Quantité</label>
-            <input type="text"  v-model=" item.qty" >
+            <label>name</label>
+            <input type="text" v-model="item.name" />
         </div>
-
         <div>
-            <label>Prix</label>
-            <input type="text"  v-model="item.price" >
+            <label>adress</label>
+            <input type="text" v-model="item.adress" />
+        </div>
+        <div>
+            <label>city</label>
+            <input type="text" v-model="item.city" />
+        </div>
+        <div>
+            <label>zip_code</label>
+            <input type="text" v-model="item.zip_code" />
+        </div>
+        <div>
+            <label>country</label>
+            <input type="text" v-model="item.country" />
+        </div>
 
     </form>
 
@@ -78,9 +84,9 @@ const ProducerEdit = {
                 const params = new URLSearchParams();
                 params.append('id', this.$route.params.id);
                 //this.$route.params.id
-                axios.post('http://files.sirius-school.be/products-api/?action=getDetail',params).then(response => {
+                axios.post('api.sirius-school.be/product-v2/producer/detail',params).then(response => {
                     console.log(this.item);
-                    this.item = response.data.product;
+                    this.item = response.data.producer;
                 });
             },
 
@@ -88,13 +94,15 @@ const ProducerEdit = {
 
             sendModif() {
                 const params = new URLSearchParams();
-                params.append('id', this.$route.params.id);
+                params.append('ip_code', this.item.ip_code);
+                params.append('firstname', this.item.firstname);
                 params.append('name', this.item.name);
-                params.append('ref', this.item.ref);
-                params.append('qty', this.item.qty);
-                params.append('price', this.item.price);
+                params.append('adress', this.item.adress);
+                params.append('city', this.item.city);
+                params.append('zip_code', this.item.zip_code);
+                params.append('country', this.item.country);
 
-                axios.post('http://files.sirius-school.be/products-api/?action=updateProduct', params).then(response => {
+                axios.post('api.sirius-school.be/product-v2/producer/update', params).then(response => {
                     console.log(response);
                     this.loading = false;
 
@@ -102,7 +110,7 @@ const ProducerEdit = {
                     //console.log(response);
 
                     if(response.data.status == 'success') {
-                        this.message = 'Produit mis à jour';
+                        this.message = 'Producteur mis à jour';
                     }
                     else
                     {

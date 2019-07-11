@@ -15,22 +15,24 @@ const ProducerDetail = {
 </div>
 
 <p v-if="item">
-    Id Produit: {{ item.id_product }} <br />
-    Nom: {{ item.name}} <br />
-    Référence: {{ item.ref}} <br />
-    Quantity: {{ item.qty}} <br />
-    Prix: {{ item.price}} <br />
+    Id Producteur: {{ item.id_producer }} <br />
+    firstname: {{ item.firstname}} <br />
+    name: {{ item.name}} <br />
+    adress: {{ item.adress}} <br />
+    city: {{ item.city}} <br />
+    zip_code: {{ item.zip_code}} <br />
+    country: {{ item.country} <br />
 </p>
 
 
-        <router-link :to="{ name: 'product-detail', params: { id: item.id_product }}"></router-link>
+        <router-link :to="{ name: 'producer-detail', params: { id: item.id_producer }}"></router-link>
 
 
         <button class="edit">
-        <router-link class="edit":to="{ name: 'product-edit', params: { id: item.id_product }}"> Modifier</router-link>
+        <router-link class="edit":to="{ name: 'producer-edit', params: { id: item.id_producer }}"> Modifier</router-link>
         </button>
 
-        <button class="delete" v-on:click="deleteProduct">supprimer</button>
+        <button class="delete" v-on:click="deleteProducer">supprimer</button>
 
         <button class="return">
         <router-link class="return" to="/">Retour</router-link>
@@ -60,21 +62,23 @@ methods: {
         const params = new URLSearchParams();
         params.append('id', this.$route.params.id);
         //this.$route.params.id
-        axios.post('http://files.sirius-school.be/products-api/?action=getDetail',params).then(response => {
+        axios.post('api.sirius-school.be/product-v2/producer/detail',params).then(response => {
             console.log('test');
-            this.item = response.data.product;
+            this.item = response.data.producer;
         });
     },
 
     deleteProduct(){
         const params = new URLSearchParams();
-                params.append('id', this.$route.params.id);
-                params.append('name', this.item.name);
-                params.append('ref', this.item.ref);
-                params.append('qty', this.item.qty);
-                params.append('price', this.item.price);
+        params.append('ip_code', this.item.ip_code);
+        params.append('firstname', this.item.firstname);
+        params.append('name', this.item.name);
+        params.append('adress', this.item.adress);
+        params.append('city', this.item.city);
+        params.append('zip_code', this.item.zip_code);
+        params.append('country', this.item.country);
 
-                axios.post('http://files.sirius-school.be/products-api/?action=deleteProduct', params).then(response => {
+                axios.post('api.sirius-school.be/product-v2/producer/delete', params).then(response => {
                     console.log(response);
                     this.loading = false;
 
@@ -82,7 +86,7 @@ methods: {
                     //console.log(response);
 
                     if(response.data.status == 'success') {
-                        this.message = 'Produit supprimer';
+                        this.message = 'Producteur supprimer';
                     }
                     else
                     {

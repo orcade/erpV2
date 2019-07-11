@@ -1,5 +1,6 @@
+
 const ProducerList = {
-    template: `
+    template:  `
     <div>
 
     <h1>Liste des producteurs</h1>
@@ -33,6 +34,7 @@ const ProducerList = {
             loading: true,
             producers:[],
             error: null
+
         }
     },
     created() {
@@ -46,10 +48,12 @@ const ProducerList = {
 
         fetchData() {
             axios.get('http://api.sirius-school.be/product-v2/producer/list').then(response => {
-                console.log(response.data.producers);
+                console.log(response.data);
                 this.loading = false;
                 //this.producers = response.data.producers;
-                //console.log(this.producers);
+                console.log("test");
+                alert('axiosGetOk');
+
             });
         }
     }

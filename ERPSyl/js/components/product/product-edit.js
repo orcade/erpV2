@@ -16,10 +16,11 @@ const ProductEdit = {
 
     <form>
 
-        <div v-if="item">
+      <div v-if="item">
 
+        <div>
             <label>Nom</label>
-            <input type="text"  v-model="item.name" v-on:keyup.enter="sendModif">
+            <input type="text"  v-model="item.name" >
         </div>
 
         <div>
@@ -36,7 +37,8 @@ const ProductEdit = {
         <div>
             <label>Prix</label>
             <input type="text"  v-model="item.price" >
-
+       </div>
+      </div>
     </form>
 
         <div>
