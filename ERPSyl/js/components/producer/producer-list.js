@@ -50,9 +50,9 @@ const ProducerList = {
             axios.get('http://api.sirius-school.be/product-v2/producer/list').then(response => {
                 console.log(response.data);
                 this.loading = false;
-                //this.producers = response.data.producers;
-                console.log("test");
-                alert('axiosGetOk');
+                this.producers = response.data.producers;
+                //console.log("test");
+                //alert('axiosGetOk');
 
             });
         }

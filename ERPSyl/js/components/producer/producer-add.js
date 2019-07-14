@@ -1,3 +1,4 @@
+
 const ProducerAdd = {
         template: `
 
@@ -52,22 +53,23 @@ const ProducerAdd = {
             loading: true,
             item: {},
             error: null,
-            message: '',
-            id:null
+            message: ''
         }
     },
 
     methods: {
         sendModif() {
             const params = new URLSearchParams();
-            params.append('ip_code', this.item.ip_code);
+            //params.append('ip_code', this.item.ip_code);
+
             params.append('firstname', this.item.firstname);
             params.append('name', this.item.name);
             params.append('adress', this.item.adress);
             params.append('city', this.item.city);
             params.append('zip_code', this.item.zip_code);
             params.append('country', this.item.country);
-            axios.post('api.sirius-school.be/product-v2/producer/insert', params).then(response => {
+            axios.post('http://api.sirius-school.be/product-v2/producer/insert', params).then(response => {
+              alert('test');
                 console.log(response);
                 this.loading = false;
 

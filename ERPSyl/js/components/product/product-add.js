@@ -8,7 +8,7 @@ const ProductAdd = {
     <div v-if="error" class="error">
       {{ error }}
     </div>
-
+    <div>
         <div>
             <label>Nom</label>
             <input type="text" v-model="item.name" />
@@ -43,8 +43,7 @@ const ProductAdd = {
             loading: true,
             item: {},
             error: null,
-            message: '',
-            id:null
+            message: ''
         }
     },
 

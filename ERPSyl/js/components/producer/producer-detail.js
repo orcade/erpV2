@@ -2,7 +2,7 @@ const ProducerDetail = {
     template: `
 <div>
 
-<h1>Produit  {{$route.params.id}}</h1>
+<h1>Produit  {{$route.params.ip_code}}</h1>
 
 
 
@@ -15,7 +15,7 @@ const ProducerDetail = {
 </div>
 
 <p v-if="item">
-    Id Producteur: {{ item.id_producer }} <br />
+    Id Producteur: {{ item.id_cusromer }} <br />
     firstname: {{ item.firstname}} <br />
     name: {{ item.name}} <br />
     adress: {{ item.adress}} <br />
@@ -25,11 +25,11 @@ const ProducerDetail = {
 </p>
 
 
-        <router-link :to="{ name: 'producer-detail', params: { id: item.id_producer }}"></router-link>
+        <router-link :to="{ name: 'producer-detail', params: { id: item.id_customer }}"></router-link>
 
 
         <button class="edit">
-        <router-link class="edit":to="{ name: 'producer-edit', params: { id: item.id_producer }}"> Modifier</router-link>
+        <router-link class="edit":to="{ name: 'producer-edit', params: { id: item.id_customer }}"> Modifier</router-link>
         </button>
 
         <button class="delete" v-on:click="deleteProducer">supprimer</button>
@@ -62,15 +62,16 @@ methods: {
         const params = new URLSearchParams();
         params.append('id', this.$route.params.id);
         //this.$route.params.id
-        axios.post('api.sirius-school.be/product-v2/producer/detail',params).then(response => {
-            console.log('test');
-            this.item = response.data.producer;
+        axios.post('http://api.sirius-school.be/product-v2/producer/detail',params).then(response => {
+            //console.log(this.$route.params.id);
+            console.log(response);
+            this.item = response.data.producers;
         });
     },
 
-    deleteProduct(){
+    deleteProducer(){
         const params = new URLSearchParams();
-        params.append('ip_code', this.item.ip_code);
+        params.append('id', this.$route.params.id);
         params.append('firstname', this.item.firstname);
         params.append('name', this.item.name);
         params.append('adress', this.item.adress);
@@ -78,11 +79,11 @@ methods: {
         params.append('zip_code', this.item.zip_code);
         params.append('country', this.item.country);
 
-                axios.post('api.sirius-school.be/product-v2/producer/delete', params).then(response => {
+                axios.post('http://api.sirius-school.be/product-v2/producer/delete', params).then(response => {
                     console.log(response);
                     this.loading = false;
 
-                    //this.item = response.data.product;
+                    //this.item = response.data.producer;
                     //console.log(response);
 
                     if(response.data.status == 'success') {

@@ -13,7 +13,7 @@ const routes = [
     {path: '/product/product-add', name: 'product-add', component:ProductAdd},
     {path: '/product/product-edit/:id', name: 'product-edit', component:ProductEdit},
   //path folder producer
-    {path: '/', name: 'producteur', component: ProducerList},
+    {path: '/', name: 'producteurs', component: ProducerList},
     {path: '/producer/producer-list', name: 'producer-list', component: ProducerList},
     {path: '/producer/producer-detail/:id', name: 'producer-detail', component:ProducerDetail},
     {path: '/producer/producer-add', name: 'producer-add', component:ProducerAdd},
