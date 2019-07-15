@@ -14,14 +14,16 @@ const ProducerList = {
     </div>
 
     <button class="add">
-    <router-link class="add"  to=producer/producer-add>Ajouter producteur</router-link>
+    <router-link class="add"  to=/producer/producer-add>Ajouter producteur</router-link>
     </button>
+  
 
     <!-- on vérifie que producteur n'est pas vide, et puis on boucle avec v-for sur un tableau d'objet "item" -->
 
     <ul v-if="producers" id="example-1">
         <li v-for="item in producers">
             <router-link :to="{ name: 'producer-detail', params: { id: item.id_producer }}">{{ item.name }} </router-link>
+            
         </li>
     </ul>
 

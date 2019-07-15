@@ -2,7 +2,7 @@ const ProducerDetail = {
     template: `
 <div>
 
-<h1>Produit  {{$route.params.ip_code}}</h1>
+<h1>Produit  {{$route.params.id}}</h1>
 
 
 
@@ -15,21 +15,22 @@ const ProducerDetail = {
 </div>
 
 <p v-if="item">
-    Id Producteur: {{ item.id_cusromer }} <br />
+    Id Producteur: {{ item.id_producer }} <br />
     firstname: {{ item.firstname}} <br />
     name: {{ item.name}} <br />
     adress: {{ item.adress}} <br />
     city: {{ item.city}} <br />
     zip_code: {{ item.zip_code}} <br />
-    country: {{ item.country} <br />
+    country: {{ item.country}} <br />
 </p>
 
 
-        <router-link :to="{ name: 'producer-detail', params: { id: item.id_customer }}"></router-link>
+        <router-link :to="{ name: 'producer-detail', params: { id: item.id_producer }}"></router-link>
 
 
         <button class="edit">
-        <router-link class="edit":to="{ name: 'producer-edit', params: { id: item.id_customer }}"> Modifier</router-link>
+        <router-link class="edit":to="{ name: 'producer-add', params: { id: item.id_producer }}"> Modifier</router-link>
+         
         </button>
 
         <button class="delete" v-on:click="deleteProducer">supprimer</button>
@@ -63,14 +64,15 @@ methods: {
         params.append('id', this.$route.params.id);
         //this.$route.params.id
         axios.post('http://api.sirius-school.be/product-v2/producer/detail',params).then(response => {
-            //console.log(this.$route.params.id);
-            console.log(response);
-            this.item = response.data.producers;
+            console.log(this.$route.params.id);
+            //console.log(response);
+            this.item = response.data.producer;
         });
     },
 
     deleteProducer(){
         const params = new URLSearchParams();
+        
         params.append('id', this.$route.params.id);
         params.append('firstname', this.item.firstname);
         params.append('name', this.item.name);
@@ -87,7 +89,7 @@ methods: {
                     //console.log(response);
 
                     if(response.data.status == 'success') {
-                        this.message = 'Producteur supprimer';
+                        this.message = 'Producteur supprimé';
                     }
                     else
                     {
