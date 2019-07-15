@@ -1,8 +1,9 @@
+
 const ProducerAdd = {
         template: `
 
         <div>
-    <h1>Produit n° {{ $route.params.id }}</h1>
+    <h1>Producteur n° {{ $route.params.id }}</h1>
 
     <div v-if="loading" class="loading">
     Loading...
@@ -13,26 +14,35 @@ const ProducerAdd = {
     </div>
     <div>
         <div>
-            <label>Nom</label>
+            <label>firstname</label>
+            <input type="text" v-model="item.firstname" />
+        </div>
+        <div>
+            <label>name</label>
             <input type="text" v-model="item.name" />
         </div>
         <div>
-            <label>Réf.</label>
-            <input type="text" v-model="item.ref" />
+            <label>adress</label>
+            <input type="text" v-model="item.adress" />
         </div>
         <div>
-            <label>Prix</label>
-            <input type="text" v-model="item.price" />
+            <label>city</label>
+            <input type="text" v-model="item.city" />
         </div>
         <div>
-            <label>Qté</label>
-            <input type="text" v-model="item.qty" />
+            <label>zip_code</label>
+            <input type="text" v-model="item.zip_code" />
         </div>
+        <div>
+            <label>country</label>
+            <input type="text" v-model="item.country" />
+        </div>
+
         <div>
             <button class="valider" v-on:click="sendModif">Valider</button>
 
             <button class= "valider">
-            <router-link class= "valider" to="/product/product-list">Retour</router-link>
+            <router-link class= "valider" to="/producer/producer-list">Retour</router-link>
             </button>
         </div>
     </div>
@@ -46,20 +56,23 @@ const ProducerAdd = {
             loading: true,
             item: {},
             error: null,
-            message: '',
-            id:null
+            message: ''
         }
     },
 
     methods: {
         sendModif() {
             const params = new URLSearchParams();
-            params.append('name', this.item.name);
-            params.append('ref', this.item.ref);
-            params.append('qty', this.item.qty);
-            params.append('price', this.item.price);
+            //params.append('ip_code', this.item.ip_code);
 
-            axios.post('http://files.sirius-school.be/products-api/?action=insertProduct', params).then(response => {
+            params.append('firstname', this.item.firstname);
+            params.append('name', this.item.name);
+            params.append('adress', this.item.adress);
+            params.append('city', this.item.city);
+            params.append('zip_code', this.item.zip_code);
+            params.append('country', this.item.country);
+            axios.post('http://api.sirius-school.be/product-v2/producer/insert', params).then(response => {
+              alert('test');
                 console.log(response);
                 this.loading = false;
 
@@ -67,7 +80,7 @@ const ProducerAdd = {
                 //console.log(response);
 
                 if(response.data.status == 'success') {
-                    this.message = 'Produit ajouté';
+                    this.message = 'Producteur ajouté';
                 }
                 else
                 {
