@@ -50,7 +50,7 @@ const ProducerEdit = {
             </button>
 
         <button class="return">
-        <router-link class="return" to="/">Retour</router-link>
+        <router-link class="return" to="/producer/producer-list">Retour</router-link>
         </button>
 
         </div>
@@ -66,8 +66,7 @@ const ProducerEdit = {
                 loading: true,
                 item: {},
                 error: null,
-                message: '',
-                id:null
+                message: ''
             }
         },
 
@@ -84,8 +83,9 @@ const ProducerEdit = {
                 const params = new URLSearchParams();
                 params.append('id', this.$route.params.id);
                 //this.$route.params.id
-                axios.post('api.sirius-school.be/product-v2/producer/detail',params).then(response => {
+                axios.post('http://api.sirius-school.be/product-v2/producer/detail',params).then(response => {
                     console.log(this.item);
+                    //alert('test');
                     this.item = response.data.producer;
                 });
             },
@@ -94,7 +94,7 @@ const ProducerEdit = {
 
             sendModif() {
                 const params = new URLSearchParams();
-                params.append('ip_code', this.item.ip_code);
+                params.append('id', this.$route.params.id);
                 params.append('firstname', this.item.firstname);
                 params.append('name', this.item.name);
                 params.append('adress', this.item.adress);
@@ -102,7 +102,7 @@ const ProducerEdit = {
                 params.append('zip_code', this.item.zip_code);
                 params.append('country', this.item.country);
 
-                axios.post('api.sirius-school.be/product-v2/producer/update', params).then(response => {
+                axios.post('http://api.sirius-school.be/product-v2/producer/update', params).then(response => {
                     console.log(response);
                     this.loading = false;
 
