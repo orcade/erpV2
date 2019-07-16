@@ -2,7 +2,7 @@ const CustomerDetail = {
     template: `
 <div>
 
-<h1>Produit  {{$route.params.id}}</h1>
+<h1>Liste des Clients  {{$route.params.ip_code}}</h1>
 
 
 
@@ -15,9 +15,9 @@ const CustomerDetail = {
 </div>
 
 <p v-if="item">
-    Id Producteur: {{ item.id_producer }} <br />
-    firstname: {{ item.firstname}} <br />
-    name: {{ item.name}} <br />
+    Id Client: {{ item.id_customer }} <br />
+    Firstname: {{ item.firstname}} <br />
+    Name: {{ item.name}} <br />
     adress: {{ item.adress}} <br />
     city: {{ item.city}} <br />
     zip_code: {{ item.zip_code}} <br />
@@ -25,18 +25,17 @@ const CustomerDetail = {
 </p>
 
 
-        <router-link :to="{ name: 'producer-detail', params: { id: item.id_producer }}"></router-link>
+        <router-link :to="{ name: 'customer-detail', params: { id: item.id_customer }}"></router-link>
 
 
         <button class="edit">
-        <router-link class="edit":to="{ name: 'producer-edit', params: { id: item.id_producer }}"> Modifier</router-link>
-
+        <router-link class="edit":to="{ name: 'customer-edit', params: { id: item.id_customer }}"> Modifier</router-link>
         </button>
 
-        <button class="delete" v-on:click="deleteProducer">supprimer</button>
+        <button class="delete" v-on:click="deleteCustomer">supprimer</button>
 
         <button class="return">
-        <router-link class="return" to="/producer/producer-list">Retour</router-link>
+        <router-link class="return" to="/customer/customer-list">Retour</router-link>
         </button>
 
         {{message}}
@@ -63,33 +62,32 @@ methods: {
         const params = new URLSearchParams();
         params.append('id', this.$route.params.id);
         //this.$route.params.id
-        axios.post('http://api.sirius-school.be/product-v2/producer/detail',params).then(response => {
-            //console.log(this.$route.params.id);
+        axios.post('http://api.sirius-school.be/product-v2/customer/detail ',params).then(response => {
+
+            this.item = response.data.customer;
             //console.log(response);
-            this.item = response.data.producer;
         });
     },
 
-    deleteProducer(){
+    deleteCustomer(){
         const params = new URLSearchParams();
+                params.append('id', this.$route.params.id);
+                params.append('firstname', this.item.firstname);
+                params.append('name', this.item.name);
+                params.append('adress', this.item.adress);
+                params.append('city', this.item.city);
+                params.append('zip_code', this.item.zip_code);
+                params.append('country', this.item.country);
 
-        params.append('id', this.$route.params.id);
-        params.append('firstname', this.item.firstname);
-        params.append('name', this.item.name);
-        params.append('adress', this.item.adress);
-        params.append('city', this.item.city);
-        params.append('zip_code', this.item.zip_code);
-        params.append('country', this.item.country);
-
-                axios.post('http://api.sirius-school.be/product-v2/producer/delete', params).then(response => {
+                axios.post('http://api.sirius-school.be/product-v2/customer/delete', params).then(response => {
                     //console.log(response);
                     this.loading = false;
 
-                    //this.item = response.data.producer;
+                    //this.item = response.data.product;
                     //console.log(response);
 
                     if(response.data.status == 'success') {
-                        this.message = 'Producteur supprimé';
+                        this.message = 'Client supprimé';
                     }
                     else
                     {

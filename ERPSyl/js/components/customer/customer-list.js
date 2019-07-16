@@ -1,6 +1,6 @@
 
 const CustomerList = {
-    template:  `
+    template: `
     <div>
 
     <h1>Liste des clients</h1>
@@ -16,14 +16,12 @@ const CustomerList = {
     <button class="add">
     <router-link class="add"  to=/customer/customer-add>Ajouter client</router-link>
     </button>
-  
 
-    <!-- on vérifie que customers n'est pas vide, et puis on boucle avec v-for sur un tableau d'objet "item" -->
+    <!-- on vérifie que customer n'est pas vide, et puis on boucle avec v-for sur un tableau d'objet "item" -->
 
     <ul v-if="customers" id="example-1">
-        <li v-for="item in producers">
+        <li v-for="item in customers">
             <router-link :to="{ name: 'customer-detail', params: { id: item.id_customer }}">{{ item.name }} </router-link>
-            
         </li>
     </ul>
 
@@ -34,9 +32,8 @@ const CustomerList = {
     data() {
         return {
             loading: true,
-            producers:[],
+            customers:{},
             error: null
-
         }
     },
     created() {
@@ -49,13 +46,12 @@ const CustomerList = {
     methods: {
 
         fetchData() {
-            axios.get('http://api.sirius-school.be/product-v2/customer/list').then(response => {
-                console.log(response.data);
+            axios.get('http://api.sirius-school.be/product-v2/team/list').then(response => {
+                this.customers= response.data.customers;
                 this.loading = false;
-                this.producers = response.data.customers;
-                //console.log("test");
-                //alert('axiosGetOk');
-
+                //this.producers = response.data.producers;
+                //console.log(this.producers);
+                //alert("axiosok");
             });
         }
     }
