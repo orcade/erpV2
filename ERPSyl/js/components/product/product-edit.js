@@ -60,14 +60,14 @@ const ProductEdit = {
                 loading: true,
                 item: {},
                 error: null,
-                message: '',
-                id:null
+                message: ''
+               
             }
         },
 
         created() {
             this.fetchData();
-            this.sendModif();
+          
         },
 
 
@@ -87,6 +87,7 @@ const ProductEdit = {
 
 
             sendModif() {
+
                 const params = new URLSearchParams();
                 params.append('id', this.$route.params.id);
                 params.append('name', this.item.name);

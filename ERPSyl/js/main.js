@@ -17,7 +17,13 @@ const routes = [
     {path: '/producer/producer-list', name: 'producer-list', component: ProducerList},
     {path: '/producer/producer-detail/:id', name: 'producer-detail', component:ProducerDetail},
     {path: '/producer/producer-add', name: 'producer-add', component:ProducerAdd},
-    {path: '/producer/producer-edit/:id', name: 'producer-edit', component:ProducerEdit}
+    {path: '/producer/producer-edit/:id', name: 'producer-edit', component:ProducerEdit},
+  //path folder producer
+    {path: '/', name: 'clients', component: ProducerList},
+    {path: '/customer/customer-list', name: 'producer-list', component: ProducerList},
+    {path: '/customer/customer-detail/:id', name: 'producer-detail', component:ProducerDetail},
+    {path: '/customer/customer-add', name: 'producer-add', component:ProducerAdd},
+    {path: '/customer/customer-edit/:id', name: 'producer-edit', component:ProducerEdit}
 ];
 
 // 3. Create the router instance and pass the `routes` option
