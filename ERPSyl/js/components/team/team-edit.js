@@ -1,8 +1,8 @@
-const CustomerEdit = {
+const TeamEdit = {
         template: `
     <div>
 
-    <h1>Mettre à jour le client n°{{ $route.params.id }} </h1>
+    <h1>Mettre à jour l'equipe  n°{{ $route.params.id }} </h1>
 
         <div v-if="loading" class="loading">
           Loading...
@@ -14,41 +14,43 @@ const CustomerEdit = {
 
 
 
-        <form>
+    <form>
 
-            <div v-if="item">
-                <label>Prénom</label>
-                <input type="text" v-model="item.firstname" />
-            </div>
-            <div>
-                <label>Nom</label>
-                <input type="text" v-model="item.name" />
-            </div>
-            <div>
-                <label>Adresse</label>
-                <input type="text" v-model="item.adress" />
-            </div>
-            <div>
-                <label>City</label>
-                <input type="text" v-model="item.city" />
-            </div>
-            <div>
-                <label>Code postal</label>
-                <input type="text" v-model="item.zip_code" />
-            </div>
-            <div>
-                <label>Pays</label>
-                <input type="text" v-model="item.country" />
-            </div>
-
-        </form>
+        <div v-if="item">
 
         <div>
-            <button class="edit" @click.prevent='sendModif' v-on:keyup.enter="sendModif" >Modifier le client
+            <label>firstname</label>
+            <input type="text" v-model="item.firstname" />
+        </div>
+        <div>
+            <label>name</label>
+            <input type="text" v-model="item.name" />
+        </div>
+        <div>
+            <label>adress</label>
+            <input type="text" v-model="item.adress" />
+        </div>
+        <div>
+            <label>city</label>
+            <input type="text" v-model="item.city" />
+        </div>
+        <div>
+            <label>zip_code</label>
+            <input type="text" v-model="item.zip_code" />
+        </div>
+        <div>
+            <label>country</label>
+            <input type="text" v-model="item.country" />
+        </div>
+
+    </form>
+
+        <div>
+            <button class="edit" @click.prevent='sendModif' v-on:keyup.enter="sendModif" >Modifier l'equipe
             </button>
 
         <button class="return">
-        <router-link class="return" to="/">Retour</router-link>
+        <router-link class="return" to="/team/team-list">Retour</router-link>
         </button>
 
         </div>
@@ -65,7 +67,8 @@ const CustomerEdit = {
                 item: {},
                 error: null,
                 message: '',
-                id:null
+
+
             }
         },
 
@@ -82,9 +85,10 @@ const CustomerEdit = {
                 const params = new URLSearchParams();
                 params.append('id', this.$route.params.id);
                 //this.$route.params.id
-                axios.post('http://api.sirius-school.be/product-v2/customer/detail',params).then(response => {
+                axios.post('http://api.sirius-school.be/product-v2/team/detail',params).then(response => {
                     console.log(this.item);
-                    this.item = response.data.customer;
+                    //alert('test');
+                    this.item = response.data.team;
                 });
             },
 
@@ -100,7 +104,7 @@ const CustomerEdit = {
                 params.append('zip_code', this.item.zip_code);
                 params.append('country', this.item.country);
 
-                axios.post('http://api.sirius-school.be/product-v2/customer/update', params).then(response => {
+                axios.post('http://api.sirius-school.be/product-v2/producer/update', params).then(response => {
                     console.log(response);
                     this.loading = false;
 
@@ -108,7 +112,7 @@ const CustomerEdit = {
                     //console.log(response);
 
                     if(response.data.status == 'success') {
-                        this.message = 'Client mis à jour';
+                        this.message = 'Equipe mise à jour';
                     }
                     else
                     {

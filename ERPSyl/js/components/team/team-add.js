@@ -1,47 +1,48 @@
 
-const CustomerAdd = {
+const TeamAdd = {
         template: `
 
-    <div>
-        <h1>client n° {{ $route.params.id }}</h1>
+        <div>
+    <h1>Equipe n° {{ $route.params.id }}</h1>
 
     <div v-if="loading" class="loading">
-        Loading...
-    </div>
+    Loading...
+  </div>
 
     <div v-if="error" class="error">
       {{ error }}
     </div>
     <div>
         <div>
-            <label>Prénom</label>
+            <label>firstname</label>
             <input type="text" v-model="item.firstname" />
         </div>
         <div>
-            <label>Nom</label>
+            <label>name</label>
             <input type="text" v-model="item.name" />
         </div>
         <div>
-            <label>Adresse</label>
+            <label>adress</label>
             <input type="text" v-model="item.adress" />
         </div>
         <div>
-            <label>City</label>
+            <label>city</label>
             <input type="text" v-model="item.city" />
         </div>
         <div>
-            <label>Code postal</label>
+            <label>zip_code</label>
             <input type="text" v-model="item.zip_code" />
         </div>
         <div>
-            <label>Pays</label>
+            <label>country</label>
             <input type="text" v-model="item.country" />
         </div>
+
         <div>
             <button class="valider" v-on:click="sendModif">Valider</button>
 
             <button class= "valider">
-            <router-link class= "valider" to="/customer/customer-list">Retour</router-link>
+            <router-link class= "valider" to="/team/team-list">Retour</router-link>
             </button>
         </div>
     </div>
@@ -55,22 +56,23 @@ const CustomerAdd = {
             loading: true,
             item: {},
             error: null,
-            message: '',
-            id:null
+            message: ''
         }
     },
 
     methods: {
         sendModif() {
             const params = new URLSearchParams();
+            //params.append('ip_code', this.item.ip_code);
+
             params.append('firstname', this.item.firstname);
             params.append('name', this.item.name);
             params.append('adress', this.item.adress);
             params.append('city', this.item.city);
             params.append('zip_code', this.item.zip_code);
             params.append('country', this.item.country);
-
-            axios.post('http://api.sirius-school.be/product-v2/customer/insert ', params).then(response => {
+            axios.post('http://api.sirius-school.be/product-v2/team/insert', params).then(response => {
+              alert('test');
                 console.log(response);
                 this.loading = false;
 
@@ -78,7 +80,7 @@ const CustomerAdd = {
                 //console.log(response);
 
                 if(response.data.status == 'success') {
-                    this.message = 'Client ajouté';
+                    this.message = 'Equipe ajouté';
                 }
                 else
                 {
