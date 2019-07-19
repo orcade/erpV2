@@ -89,6 +89,7 @@ methods: {
                     //console.log(response);
 
                     if(response.data.status == 'success') {
+                        (confirm("Voulez vous vraiment supprimer ce commentaire ?"))
                         this.message = 'Producteur supprimé';
                     }
                     else
@@ -99,3 +100,4 @@ methods: {
     },
 },
 };
+
