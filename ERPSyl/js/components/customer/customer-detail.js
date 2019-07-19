@@ -87,8 +87,8 @@ methods: {
                     //console.log(response);
 
                     if(response.data.status == 'success') {
-                        (confirm("Voulez vous vraiment supprimer ce commentaire ?"))
-                        this.message = 'Producteur supprimé';
+                        (confirm("Voulez vous vraiment supprimer ce client ?"))
+                        this.message = 'Client supprimé';
                     }
                     else
                     {

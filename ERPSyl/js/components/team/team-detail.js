@@ -88,8 +88,10 @@ methods: {
                     //this.item = response.data.producer;
                     //console.log(response);
 
+                    
                     if(response.data.status == 'success') {
-                        this.message = 'Equipe supprimé';
+                        (confirm("Voulez vous vraiment supprimer cette equippe ?"))
+                        this.message = 'Equippe supprimé';
                     }
                     else
                     {

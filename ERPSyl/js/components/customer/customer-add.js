@@ -5,9 +5,7 @@ const CustomerAdd = {
     <div>
         <h1>client n° {{ $route.params.id }}</h1>
 
-    <div v-if="loading" class="loading">
-        Loading...
-    </div>
+
 
     <div v-if="error" class="error">
       {{ error }}
